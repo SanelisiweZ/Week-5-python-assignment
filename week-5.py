@@ -1,39 +1,41 @@
-def read_file(filename):
-    """Attempts to read the content of the given file."""
-    try:
-        with open(filename, 'r') as file:
-            return file.read()
-    except FileNotFoundError:
-        print(f"❌ Error: The file '{filename}' was not found.")
-    except IOError:
-        print(f"❌ Error: Could not read the file '{filename}'.")
-    return None
+# Base class
+class Superhero:
+    def __init__(self, name, power, origin):
+        self.name = name
+        self.power = power
+        self.origin = origin
 
-def write_file(filename, content):
-    """Writes modified content to a new file."""
-    try:
-        with open(filename, 'w') as file:
-            file.write(content)
-        print(f"✅ Successfully wrote to '{filename}'")
-    except IOError:
-        print(f"❌ Error: Could not write to the file '{filename}'.")
+    def introduce(self):
+        print(f"I am {self.name} from {self.origin}, and I use {self.power}!")
 
-def modify_content(content):
-    """Modify the content in some way. Here, we convert it to uppercase."""
-    return content.upper()
+# Inherited class
+class FlyingHero(Superhero):
+    def __init__(self, name, power, origin, flight_speed):
+        super().__init__(name, power, origin)
+        self.flight_speed = flight_speed
 
-def main():
-    # Ask user for input filename
-    input_file = input("📄 Enter the name of the file to read: ")
-    content = read_file(input_file)
+    def fly(self):
+        print(f"{self.name} is flying at {self.flight_speed} km/h! ✈️")
 
-    if content is not None:
-        # Modify the content
-        modified = modify_content(content)
+# Inherited class
+class StrengthHero(Superhero):
+    def __init__(self, name, power, origin, lift_capacity):
+        super().__init__(name, power, origin)
+        self.lift_capacity = lift_capacity
 
-        # Ask user for output filename
-        output_file = input("💾 Enter the name of the new file to save the modified content: ")
-        write_file(output_file, modified)
+    def lift(self):
+        print(f"{self.name} can lift {self.lift_capacity} tons! 💪")
 
-if __name__ == "__main__":
-    main()
+# Test the classes
+hero1 = FlyingHero("SkyBlaze", "Wind Control", "Sky City", 800)
+hero2 = StrengthHero("Titan", "Super Strength", "Earth Base", 100)
+
+hero1.introduce()
+hero1.fly()
+
+hero2.introduce()
+hero2.lift()
+
+
+
+
